@@ -2,343 +2,172 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Cʀɪᴄx 〆 Live</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css">
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.js"></script>
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cʀɪᴄx 〆 — Live</title>
 <style>
-body{
-  margin:0;
-  background:#050b18;
-  font-family:Arial, sans-serif;
-  color:#fff;
-}
-.header{
-  background:#0a1f44;
-  padding:14px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-}
-.sub{font-size:13px;opacity:.8}
-.player-box{margin:10px}
-.info{
-  margin:10px;
-  background:#0a1f44;
-  padding:10px;
-  border-radius:10px;
-  font-size:14px;
-}
-.counter{color:#00ffcc;font-weight:bold}
-.tg-box{
-  margin:15px;
-  padding:15px;
-  border-radius:14px;
-  background:linear-gradient(135deg,#0a1f44,#020617);
-  text-align:center;
-}
-.tg-box a{
-  display:block;
-  margin:10px 0;
-  padding:13px;
-  border-radius:10px;
-  background:#0088cc;
-  color:#fff;
-  font-weight:bold;
-  text-decoration:none;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#050806;--card:#0a110d;--line:rgba(255,255,255,.09);--muted:#84918a;--green:#27f08a}
+body{min-height:100vh;background:radial-gradient(circle at 50% -10%,#102419 0,#050806 38%,#030504 100%);color:#fff;font-family:Inter,Arial,sans-serif}
+.header{height:64px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(3,7,5,.72);backdrop-filter:blur(16px)}
+.brand{font-size:22px;font-weight:900;letter-spacing:.2px}.brand b{color:var(--green)}
+.live{font-size:10px;font-weight:900;letter-spacing:1px;color:#b8c4bd;display:flex;align-items:center;gap:6px}
+.live i{width:7px;height:7px;border-radius:50%;background:#27f08a;box-shadow:0 0 12px #27f08a}
+.page{width:min(980px,100%);margin:auto;padding:14px}
+.card{background:rgba(8,15,11,.82);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.player{position:relative;aspect-ratio:16/9;background:#000}
+video,iframe{width:100%;height:100%;display:block;border:0}
+iframe{display:none}
+.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#030504;z-index:3}
+.loading strong{font-size:22px}.loading span{margin-top:7px;color:var(--muted);font-size:12px}
+.dots:after{content:"";animation:dots 1.2s steps(4,end) infinite}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}100%{content:""}}
+.info{padding:15px 16px 13px}
+.series{font-size:11px;color:var(--green);font-weight:800;text-transform:uppercase;letter-spacing:.7px}
+.match{font-size:18px;font-weight:900;margin-top:5px}
+.stream{font-size:11px;color:var(--muted);margin-top:5px}
+.actions{display:flex;gap:8px;margin-top:13px}
+.actions a,.actions button{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;text-decoration:none;color:#fff;background:#0d1711;font-size:12px;font-weight:800;cursor:pointer}
+.actions a:first-child{background:#128bd1;border-color:#128bd1}
+.error{display:none;padding:60px 20px;text-align:center}
+.error strong{display:block;font-size:20px}.error p{color:var(--muted);font-size:12px;margin-top:7px}
+.footer{text-align:center;color:#56625b;font-size:10px;padding:18px}
+@media(max-width:600px){.header{height:60px}.brand{font-size:20px}.page{padding:9px}.card{border-radius:12px}.match{font-size:16px}}
 </style>
-  <style>
-/* Telegram Join Popup */
-.tg-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:99999;
-}
-.tg-box{
-  width:90%;
-  max-width:360px;
-  background:linear-gradient(135deg,#1da1f2,#0d6efd);
-  padding:25px;
-  border-radius:16px;
-  text-align:center;
-  color:#fff;
-  box-shadow:0 0 40px rgba(29,161,242,.6);
-}
-.tg-box h2{
-  margin:10px 0;
-}
-.tg-box p{
-  font-size:14px;
-  opacity:.9;
-}
-.tg-btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  font-size:16px;
-  cursor:pointer;
-  margin-top:12px;
-}
-.tg-join{
-  background:#fff;
-  color:#0d6efd;
-  font-weight:bold;
-}
-.tg-later{
-  background:rgba(255,255,255,.25);
-  color:#fff;
-}
-  </style>
 </head>
+<body>
 
-<body oncontextmenu="return false">
+<header class="header">
+  <div class="brand">Cʀɪᴄ<b>x</b> 〆</div>
+  <div class="live"><i></i> LIVE NOW</div>
+</header>
 
-<div class="header">
-  Cʀɪᴄx 〆 
-</div>
+<main class="page">
+  <section class="card">
+    <div class="player">
+      <video id="video" controls playsinline></video>
+      <iframe id="frame" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      <div class="loading" id="loading">
+        <strong>Cʀɪᴄx 〆</strong>
+        <span>Connecting to stream<span class="dots"></span></span>
+      </div>
+    </div>
 
-<div class="player-box">
-  <video 
-  id="player"
-  playsinline
-  muted
-  autoplay
-  controls
-  preload="auto">
-  </video>
-</div>
+    <div class="info" id="info">
+      <div class="series" id="series"></div>
+      <div class="match" id="match"></div>
+      <div class="stream" id="stream"></div>
+      <div class="actions">
+        <a href="https://t.me/cricxq" target="_blank" rel="noopener">✈ Telegram</a>
+        <button id="share">↗ Share</button>
+      </div>
+    </div>
 
-<div class="tg-box">
-  <a href="https://t.me/CriccSojeeb" target="_blank">
-    🔔 Join Telegram for Live Match Links
-  </a>
-</div>
+    <div class="error" id="error">
+      <strong>🔴 Stream Unavailable</strong>
+      <p>This match is currently offline.</p>
+    </div>
+  </section>
+</main>
 
+<footer class="footer">© 2026 Cʀɪᴄx 〆</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-// 🔐 Basic Inspect Protection
-document.onkeydown = function(e){
-  if(e.keyCode==123) return false;
-  if(e.ctrlKey && e.shiftKey && e.keyCode==73) return false;
+/*
+  Cʀɪᴄx 〆 — 25 stream slots
+
+  URL format:
+  https://cricxx.github.io/cricxq-/?A1
+
+  Put only authorized HLS (.m3u8) or authorized iframe/embed URLs
+  in the corresponding "url" field.
+*/
+
+const STREAMS = {
+  A1:{section:"India Tour of West Indies 2026",match:"1st T20I Match",url:""},
+  A2:{section:"India Tour of West Indies 2026",match:"1st T20I Match",url:""},
+  A3:{section:"India Tour of West Indies 2026",match:"1st T20I Match",url:""},
+  A4:{section:"India Tour of West Indies 2026",match:"1st T20I Match",url:""},
+  A5:{section:"India Tour of West Indies 2026",match:"1st T20I Match",url:""},
+
+  B1:{section:"World Legend Championship League 2026",match:"Match 1 — Bangladesh vs Australia",url:""},
+  B2:{section:"World Legend Championship League 2026",match:"Match 1 — Bangladesh vs Australia",url:""},
+  B3:{section:"World Legend Championship League 2026",match:"Match 1 — Bangladesh vs Australia",url:""},
+  B4:{section:"World Legend Championship League 2026",match:"Match 1 — Bangladesh vs Australia",url:""},
+  B5:{section:"World Legend Championship League 2026",match:"Match 1 — Bangladesh vs Australia",url:""},
+
+  C1:{section:"Series 3 — 2026",match:"Match 1",url:""},
+  C2:{section:"Series 3 — 2026",match:"Match 1",url:""},
+  C3:{section:"Series 3 — 2026",match:"Match 1",url:""},
+  C4:{section:"Series 3 — 2026",match:"Match 1",url:""},
+  C5:{section:"Series 3 — 2026",match:"Match 1",url:""},
+
+  D1:{section:"Series 4 — 2026",match:"Match 1",url:""},
+  D2:{section:"Series 4 — 2026",match:"Match 1",url:""},
+  D3:{section:"Series 4 — 2026",match:"Match 1",url:""},
+  D4:{section:"Series 4 — 2026",match:"Match 1",url:""},
+  D5:{section:"Series 4 — 2026",match:"Match 1",url:""},
+
+  E1:{section:"Series 5 — 2026",match:"Match 1",url:""},
+  E2:{section:"Series 5 — 2026",match:"Match 1",url:""},
+  E3:{section:"Series 5 — 2026",match:"Match 1",url:""},
+  E4:{section:"Series 5 — 2026",match:"Match 1",url:""},
+  E5:{section:"Series 5 — 2026",match:"Match 1",url:""}
 };
 
-// 🔔 Telegram Join Popup (Join / Skip)
-if(!localStorage.getItem("tg_skip")){
-  setTimeout(()=>{
-    if(confirm("Join CriccSojeeb Telegram Channel for live links?")){
-      window.location.href="https://t.me/CriccSojeeb";
-    }else{
-      localStorage.setItem("tg_skip","yes");
-    }
-  },1500);
-}
+const params = new URLSearchParams(location.search);
+const key = ([...params.keys()][0] || "").toUpperCase();
+const data = STREAMS[key];
 
-const CHANNELS = {
+const video = document.getElementById("video");
+const frame = document.getElementById("frame");
+const loading = document.getElementById("loading");
+const error = document.getElementById("error");
+const info = document.getElementById("info");
 
-  /*
-   * Cʀɪᴄx 〆 — 5 × 5 SHORT LINK SYSTEM
-   *
-   * A1–A5
-   * B1–B5
-   * C1–C5
-   * D1–D5
-   * E1–E5
-   *
-   * Example:
-   * https://cricxx.github.io/cricxq-/?A1
-   *
-   * Replace each placeholder with an authorized stream/embed URL.
-   */
-  A1: { name:"A1", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  A2: { name:"A2", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  A3: { name:"A3", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  A4: { name:"A4", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  A5: { name:"A5", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  B1: { name:"B1", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  B2: { name:"B2", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  B3: { name:"B3", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  B4: { name:"B4", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  B5: { name:"B5", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  C1: { name:"C1", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  C2: { name:"C2", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  C3: { name:"C3", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  C4: { name:"C4", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  C5: { name:"C5", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  D1: { name:"D1", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  D2: { name:"D2", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  D3: { name:"D3", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  D4: { name:"D4", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  D5: { name:"D5", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  E1: { name:"E1", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  E2: { name:"E2", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  E3: { name:"E3", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  E4: { name:"E4", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-  E5: { name:"E5", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
-
-};
-
-
-/* ========== STREAM SELECTOR ========== */
-const params = new URLSearchParams(window.location.search);
-
-// Short link format: ?A1, ?A2 ... ?E5
-// URLSearchParams treats ?A1 as a key with an empty value.
-const shortKey = [...params.keys()][0] || "";
-
-if(!/^[A-E][1-5]$/.test(shortKey) || !CHANNELS[shortKey]){
-  alert("❌ Invalid or Private Stream Link");
-  throw new Error("No stream selected");
-}
-
-const source = CHANNELS[shortKey].url;
-
-if(!source || source === "PASTE_AUTHORIZED_STREAM_URL_HERE"){
-  alert("⚠️ This stream is not configured yet.");
-  throw new Error("Stream URL not configured");
-}
-const video = document.getElementById("player");
-
-// ▶️ HLS Player
-if(Hls.isSupported()){
-  const hls = new Hls({autoStartLoad:true});
-  hls.loadSource(source);
-  hls.attachMedia(video);
+if(!data){
+  info.style.display="none";
+  loading.style.display="none";
+  error.style.display="block";
 }else{
-  video.src = source;
-}
+  document.getElementById("series").textContent=data.section;
+  document.getElementById("match").textContent=data.match;
+  document.getElementById("stream").textContent="Stream "+key;
 
-// 🎛 Plyr UI
-new Plyr(video,{
-  quality:{
-    default:'auto',
-    options:['auto',1080,720,480,360],
-    forced:true
+  if(data.url && /^https?:\/\//i.test(data.url)){
+    if(/\.m3u8($|\?)/i.test(data.url)){
+      if(video.canPlayType("application/vnd.apple.mpegurl")){
+        video.src=data.url;
+        video.play().catch(()=>{});
+        video.addEventListener("loadedmetadata",()=>loading.style.display="none",{once:true});
+      }else if(window.Hls && Hls.isSupported()){
+        const hls=new Hls();
+        hls.loadSource(data.url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED,()=>loading.style.display="none");
+        hls.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal){loading.style.display="none";error.style.display="block";}});
+      }else{
+        loading.style.display="none"; error.style.display="block";
+      }
+    }else{
+      video.style.display="none";
+      frame.style.display="block";
+      frame.src=data.url;
+      loading.style.display="none";
+    }
+  }else{
+    loading.style.display="none";
+    error.style.display="block";
   }
+}
+
+document.getElementById("share").addEventListener("click",async()=>{
+  const url=location.href;
+  try{
+    if(navigator.share) await navigator.share({title:"Cʀɪᴄx 〆",url});
+    else await navigator.clipboard.writeText(url);
+  }catch(e){}
 });
-
 </script>
-  <!-- Telegram Join Popup -->
-<div class="tg-overlay" id="tgPopup">
-  <div class="tg-box">
-    <h2>Join our Telegram</h2>
-    <p>Get instant updates on all live streams</p>
-
-    <button class="tg-btn tg-join" onclick="joinTG()">Join Now</button>
-    <button class="tg-btn tg-later" onclick="closeTG()">Maybe Later</button>
-  </div>
-</div>
-  <script>
-function joinTG(){
-  window.open("https://t.me/CriccSojeeb","_blank");
-}
-
-function closeTG(){
-  document.getElementById("tgPopup").style.display="none";
-}
-
-// Reload হলেই popup দেখাবে
-window.onload = function(){
-  document.getElementById("tgPopup").style.display="flex";
-};
-  </script>
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
