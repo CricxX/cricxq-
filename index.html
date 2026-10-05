@@ -2,172 +2,716 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Cʀɪᴄx 〆 — Live</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cʀɪᴄx 〆 — Live Sports</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#050806;--card:#0a110d;--line:rgba(255,255,255,.09);--muted:#84918a;--green:#27f08a}
-body{min-height:100vh;background:radial-gradient(circle at 50% -10%,#102419 0,#050806 38%,#030504 100%);color:#fff;font-family:Inter,Arial,sans-serif}
-.header{height:64px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:rgba(3,7,5,.72);backdrop-filter:blur(16px)}
-.brand{font-size:22px;font-weight:900;letter-spacing:.2px}.brand b{color:var(--green)}
-.live{font-size:10px;font-weight:900;letter-spacing:1px;color:#b8c4bd;display:flex;align-items:center;gap:6px}
-.live i{width:7px;height:7px;border-radius:50%;background:#27f08a;box-shadow:0 0 12px #27f08a}
-.page{width:min(980px,100%);margin:auto;padding:14px}
-.card{background:rgba(8,15,11,.82);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.4)}
-.player{position:relative;aspect-ratio:16/9;background:#000}
-video,iframe{width:100%;height:100%;display:block;border:0}
+:root{--bg:#050807;--card:#0a100d;--card2:#0d1511;--line:rgba(255,255,255,.08);--green:#20e886;--text:#f4f7f5;--muted:#89958e}
+body{min-height:100vh;background:radial-gradient(circle at 50% -20%,rgba(20,180,100,.13),transparent 40%),var(--bg);color:var(--text);font-family:Inter,Arial,Helvetica,sans-serif}
+.header{height:64px;border-bottom:1px solid var(--line);background:rgba(5,8,7,.82);backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:50}
+.logo{font-size:22px;font-weight:900}.logo span{color:var(--green)}
+.header-right{display:flex;align-items:center;gap:18px}
+.live-status{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:900;letter-spacing:1px;color:#c6cec9}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#21ed82;box-shadow:0 0 0 4px rgba(32,232,134,.08),0 0 12px rgba(32,232,134,.8)}
+.telegram-top{display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff;font-size:11px;font-weight:800}
+.telegram-icon{width:29px;height:29px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#168bd0;font-size:14px}
+.telegram-top small{display:block;color:#5fc7ff;font-size:9px;margin-top:2px}
+.page{width:min(1180px,100%);margin:auto;padding:20px 16px 30px}
+.player-card{width:100%;background:#000;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 20px 70px rgba(0,0,0,.45)}
+.player{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+video,iframe{width:100%;height:100%;border:0;display:block}
 iframe{display:none}
-.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#030504;z-index:3}
-.loading strong{font-size:22px}.loading span{margin-top:7px;color:var(--muted);font-size:12px}
-.dots:after{content:"";animation:dots 1.2s steps(4,end) infinite}
+.loading{position:absolute;inset:0;background:#030504;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:5}
+.loading-logo{font-size:24px;font-weight:900}.loading-logo span{color:var(--green)}
+.loading-text{margin-top:8px;color:var(--muted);font-size:12px}
+.loading-dots:after{content:"";animation:dots 1.2s steps(4,end) infinite}
 @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}100%{content:""}}
-.info{padding:15px 16px 13px}
-.series{font-size:11px;color:var(--green);font-weight:800;text-transform:uppercase;letter-spacing:.7px}
-.match{font-size:18px;font-weight:900;margin-top:5px}
-.stream{font-size:11px;color:var(--muted);margin-top:5px}
-.actions{display:flex;gap:8px;margin-top:13px}
-.actions a,.actions button{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center;text-decoration:none;color:#fff;background:#0d1711;font-size:12px;font-weight:800;cursor:pointer}
-.actions a:first-child{background:#128bd1;border-color:#128bd1}
-.error{display:none;padding:60px 20px;text-align:center}
-.error strong{display:block;font-size:20px}.error p{color:var(--muted);font-size:12px;margin-top:7px}
-.footer{text-align:center;color:#56625b;font-size:10px;padding:18px}
-@media(max-width:600px){.header{height:60px}.brand{font-size:20px}.page{padding:9px}.card{border-radius:12px}.match{font-size:16px}}
+.info{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.info-card{background:linear-gradient(145deg,rgba(13,22,17,.95),rgba(8,13,10,.95));border:1px solid var(--line);border-radius:14px;padding:18px}
+.label{color:var(--green);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.tournament{font-size:18px;font-weight:850;line-height:1.3}
+.match{margin-top:5px;color:#cbd3ce;font-size:13px}
+.stream-box{display:flex;flex-direction:column;justify-content:center}
+.stream-title{font-size:10px;font-weight:900;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.current-stream{display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 12px;border:1px solid rgba(32,232,134,.3);border-radius:11px;background:rgba(32,232,134,.055)}
+.stream-code{min-width:38px;height:31px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:var(--green);color:#031008;font-size:11px;font-weight:950}
+.stream-name{font-size:13px;font-weight:800}
+.actions{margin-top:12px;display:flex;gap:9px}
+.action{flex:1;min-height:42px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:#fff;background:var(--card2);font-size:11px;font-weight:850;cursor:pointer;transition:.2s}
+.action:hover{border-color:rgba(32,232,134,.35)}
+.telegram-btn{background:#128bd0;border-color:#128bd0}
+.stream-list{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.stream-list-title{font-size:11px;font-weight:900;color:#dfe7e2;margin-bottom:10px}
+.streams{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.stream-item{border:1px solid var(--line);background:#0b120e;border-radius:10px;min-height:50px;display:flex;align-items:center;gap:9px;padding:7px 9px;color:#fff;text-decoration:none;transition:.2s}
+.stream-item:hover{border-color:rgba(32,232,134,.35);transform:translateY(-1px)}
+.stream-item.active{border-color:var(--green);background:rgba(32,232,134,.07)}
+.item-code{width:31px;height:31px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#151d18;color:#aab5ae;font-size:10px;font-weight:950}
+.active .item-code{background:var(--green);color:#031008}
+.item-info{min-width:0}.item-name{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.item-status{color:#68756e;font-size:9px;margin-top:2px}
+.telegram-banner{margin-top:14px;min-height:55px;border:1px solid rgba(18,139,208,.2);border-radius:13px;background:linear-gradient(90deg,rgba(18,139,208,.08),rgba(18,139,208,.025));display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;color:#fff}
+.tg-round{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#168bd0}
+.tg-text{font-size:11px;font-weight:850}.tg-text span{color:#52c5ff;margin-left:3px}
+.error{display:none;aspect-ratio:16/9;align-items:center;justify-content:center;flex-direction:column;background:#050807;text-align:center}
+.error-icon{font-size:30px}.error-title{margin-top:9px;font-size:18px;font-weight:900}.error-text{margin-top:5px;color:var(--muted);font-size:11px}
+.footer{text-align:center;color:#4f5b54;font-size:9px;padding:18px 0 4px;letter-spacing:.4px}
+
+@media(max-width:850px){.info{grid-template-columns:1fr}.streams{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){
+.header{height:58px;padding:0 12px}.logo{font-size:19px}.telegram-top{display:none}
+.page{padding:9px}.player-card{border-radius:12px}.info{margin-top:9px;gap:9px}
+.info-card{padding:14px;border-radius:12px}.tournament{font-size:16px}.match{font-size:12px}
+.current-stream{min-height:45px}.streams{grid-template-columns:1fr 1fr}.stream-list{padding:11px;border-radius:12px}
+.stream-item{min-height:46px}.item-name{font-size:10px}.actions{gap:7px}.action{min-height:40px}
+}
 </style>
 </head>
+
 <body>
 
 <header class="header">
-  <div class="brand">Cʀɪᴄ<b>x</b> 〆</div>
-  <div class="live"><i></i> LIVE NOW</div>
+  <div class="logo">Cʀɪᴄ<span>x</span> 〆</div>
+
+  <div class="header-right">
+    <div class="live-status">
+      <i class="live-dot"></i>
+      LIVE NOW
+    </div>
+
+    <a class="telegram-top" href="https://t.me/cricxq" target="_blank" rel="noopener">
+      <div class="telegram-icon">➤</div>
+      <div>
+        Join Telegram
+        <small>@cricxq</small>
+      </div>
+    </a>
+  </div>
 </header>
 
 <main class="page">
-  <section class="card">
+
+  <section class="player-card">
+
     <div class="player">
+
       <video id="video" controls playsinline></video>
-      <iframe id="frame" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+
+      <iframe
+        id="frame"
+        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+
       <div class="loading" id="loading">
-        <strong>Cʀɪᴄx 〆</strong>
-        <span>Connecting to stream<span class="dots"></span></span>
+        <div class="loading-logo">Cʀɪᴄ<span>x</span> 〆</div>
+        <div class="loading-text">
+          Connecting to stream<span class="loading-dots"></span>
+        </div>
       </div>
+
+      <div class="error" id="error">
+        <div class="error-icon">🔴</div>
+        <div class="error-title">Stream Unavailable</div>
+        <div class="error-text">This match is currently offline.</div>
+      </div>
+
     </div>
 
-    <div class="info" id="info">
-      <div class="series" id="series"></div>
-      <div class="match" id="match"></div>
-      <div class="stream" id="stream"></div>
-      <div class="actions">
-        <a href="https://t.me/cricxq" target="_blank" rel="noopener">✈ Telegram</a>
-        <button id="share">↗ Share</button>
-      </div>
-    </div>
-
-    <div class="error" id="error">
-      <strong>🔴 Stream Unavailable</strong>
-      <p>This match is currently offline.</p>
-    </div>
   </section>
+
+
+  <!-- MATCH INFORMATION -->
+
+  <section class="info">
+
+    <div class="info-card">
+
+      <div class="label">Tournament</div>
+
+      <div class="tournament" id="tournament">
+        —
+      </div>
+
+      <div class="label" style="margin-top:16px">
+        Match
+      </div>
+
+      <div class="match" id="match">
+        —
+      </div>
+
+    </div>
+
+
+    <!-- CURRENT STREAM -->
+
+    <div class="info-card stream-box">
+
+      <div class="stream-title">
+        Current Stream
+      </div>
+
+      <div class="current-stream">
+
+        <div class="stream-code" id="currentCode">
+          A1
+        </div>
+
+        <div class="stream-name" id="currentName">
+          —
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <a
+          class="action telegram-btn"
+          href="https://t.me/cricxq"
+          target="_blank"
+          rel="noopener">
+          ✈ Telegram
+        </a>
+
+        <button class="action" id="shareBtn">
+          ↗ Share
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- STREAM LIST -->
+
+  <section class="stream-list">
+
+    <div class="stream-list-title">
+      Available Streams
+    </div>
+
+    <div class="streams" id="streamList"></div>
+
+  </section>
+
+
+  <!-- TELEGRAM BRANDING -->
+
+  <a
+    class="telegram-banner"
+    href="https://t.me/cricxq"
+    target="_blank"
+    rel="noopener">
+
+    <div class="tg-round">➤</div>
+
+    <div class="tg-text">
+      Join Cʀɪᴄx 〆 on Telegram
+      <span>@cricxq</span>
+    </div>
+
+  </a>
+
+
+  <footer class="footer">
+    © 2026 Cʀɪᴄx 〆 • Live Sports
+  </footer>
+
 </main>
 
-<footer class="footer">© 2026 Cʀɪᴄx 〆</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 <script>
+
 /*
-  Cʀɪᴄx 〆 — 25 stream slots
+====================================================
+ Cʀɪᴄx 〆 STREAM CONFIGURATION
+====================================================
 
-  URL format:
-  https://cricxx.github.io/cricxq-/?A1
+URL examples:
 
-  Put only authorized HLS (.m3u8) or authorized iframe/embed URLs
-  in the corresponding "url" field.
+https://cricxx.github.io/cricxq-/?A1
+https://cricxx.github.io/cricxq-/?A2
+https://cricxx.github.io/cricxq-/?B1
+
+Only change:
+- tournament
+- match
+- stream name
+- stream URL
+
+Use only stream/embed URLs you are authorized to use.
+====================================================
 */
 
-const STREAMS = {
-  A1:{section:"India Tour of West Indies 2026",match:"1st T20I Match",url:"https://ntv.cx/embed?t=WElXbjZyTXRVZ3RDRDYyQjhiZjAwb1VhMGQ2a1V5dS9KUWZYdGp6Y1NwVTMrRk40dURzWGFqMUJIRWprQkdzbg~~"},
-  A2:{section:"India Tour of West Indies 2026",match:"1st T20I Match",url:""},
-  A3:{section:"India Tour of West Indies 2026",match:"1st T20I Match",url:""},
-  A4:{section:"India Tour of West Indies 2026",match:"1st T20I Match",url:""},
-  A5:{section:"India Tour of West Indies 2026",match:"1st T20I Match",url:""},
 
-  B1:{section:"World Legend Championship League 2026",match:"Match 1 — Bangladesh vs Australia",url:""},
-  B2:{section:"World Legend Championship League 2026",match:"Match 1 — Bangladesh vs Australia",url:""},
-  B3:{section:"World Legend Championship League 2026",match:"Match 1 — Bangladesh vs Australia",url:""},
-  B4:{section:"World Legend Championship League 2026",match:"Match 1 — Bangladesh vs Australia",url:""},
-  B5:{section:"World Legend Championship League 2026",match:"Match 1 — Bangladesh vs Australia",url:""},
+const TOURNAMENTS = {
 
-  C1:{section:"Series 3 — 2026",match:"Match 1",url:""},
-  C2:{section:"Series 3 — 2026",match:"Match 1",url:""},
-  C3:{section:"Series 3 — 2026",match:"Match 1",url:""},
-  C4:{section:"Series 3 — 2026",match:"Match 1",url:""},
-  C5:{section:"Series 3 — 2026",match:"Match 1",url:""},
+  A: {
 
-  D1:{section:"Series 4 — 2026",match:"Match 1",url:""},
-  D2:{section:"Series 4 — 2026",match:"Match 1",url:""},
-  D3:{section:"Series 4 — 2026",match:"Match 1",url:""},
-  D4:{section:"Series 4 — 2026",match:"Match 1",url:""},
-  D5:{section:"Series 4 — 2026",match:"Match 1",url:""},
+    tournament: "India Tour of West Indies 2026",
 
-  E1:{section:"Series 5 — 2026",match:"Match 1",url:""},
-  E2:{section:"Series 5 — 2026",match:"Match 1",url:""},
-  E3:{section:"Series 5 — 2026",match:"Match 1",url:""},
-  E4:{section:"Series 5 — 2026",match:"Match 1",url:""},
-  E5:{section:"Series 5 — 2026",match:"Match 1",url:""}
+    match: "1st T20I",
+
+    streams: {
+
+      A1: {
+        name: "Willow Sports",
+        url: ""
+      },
+
+      A2: {
+        name: "Sky Sports",
+        url: ""
+      },
+
+      A3: {
+        name: "Tampad",
+        url: ""
+      },
+
+      A4: {
+        name: "FanCode",
+        url: ""
+      },
+
+      A5: {
+        name: "Fox Sports",
+        url: ""
+      }
+
+    }
+
+  },
+
+
+  B: {
+
+    tournament: "World Legend Championship League 2026",
+
+    match: "Match 1 — Bangladesh vs Australia",
+
+    streams: {
+
+      B1: {
+        name: "Star Sports",
+        url: ""
+      },
+
+      B2: {
+        name: "Sony Ten",
+        url: ""
+      },
+
+      B3: {
+        name: "Sony LIV",
+        url: ""
+      },
+
+      B4: {
+        name: "Willow Sports",
+        url: ""
+      },
+
+      B5: {
+        name: "FanCode",
+        url: ""
+      }
+
+    }
+
+  },
+
+
+  C: {
+
+    tournament: "Series 3 — 2026",
+
+    match: "Match 1",
+
+    streams: {
+
+      C1:{name:"Stream 1",url:""},
+      C2:{name:"Stream 2",url:""},
+      C3:{name:"Stream 3",url:""},
+      C4:{name:"Stream 4",url:""},
+      C5:{name:"Stream 5",url:""}
+
+    }
+
+  },
+
+
+  D: {
+
+    tournament: "Series 4 — 2026",
+
+    match: "Match 1",
+
+    streams: {
+
+      D1:{name:"Stream 1",url:""},
+      D2:{name:"Stream 2",url:""},
+      D3:{name:"Stream 3",url:""},
+      D4:{name:"Stream 4",url:""},
+      D5:{name:"Stream 5",url:""}
+
+    }
+
+  },
+
+
+  E: {
+
+    tournament: "Series 5 — 2026",
+
+    match: "Match 1",
+
+    streams: {
+
+      E1:{name:"Stream 1",url:""},
+      E2:{name:"Stream 2",url:""},
+      E3:{name:"Stream 3",url:""},
+      E4:{name:"Stream 4",url:""},
+      E5:{name:"Stream 5",url:""}
+
+    }
+
+  }
+
 };
 
+
+/* ==================================================
+   GET ?A1
+================================================== */
+
 const params = new URLSearchParams(location.search);
-const key = ([...params.keys()][0] || "").toUpperCase();
-const data = STREAMS[key];
 
-const video = document.getElementById("video");
-const frame = document.getElementById("frame");
-const loading = document.getElementById("loading");
-const error = document.getElementById("error");
-const info = document.getElementById("info");
+const key =
+  ([...params.keys()][0] || "").toUpperCase();
 
-if(!data){
-  info.style.display="none";
-  loading.style.display="none";
-  error.style.display="block";
-}else{
-  document.getElementById("series").textContent=data.section;
-  document.getElementById("match").textContent=data.match;
-  document.getElementById("stream").textContent="Stream "+key;
 
-  if(data.url && /^https?:\/\//i.test(data.url)){
-    if(/\.m3u8($|\?)/i.test(data.url)){
-      if(video.canPlayType("application/vnd.apple.mpegurl")){
-        video.src=data.url;
-        video.play().catch(()=>{});
-        video.addEventListener("loadedmetadata",()=>loading.style.display="none",{once:true});
-      }else if(window.Hls && Hls.isSupported()){
-        const hls=new Hls();
-        hls.loadSource(data.url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED,()=>loading.style.display="none");
-        hls.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal){loading.style.display="none";error.style.display="block";}});
-      }else{
-        loading.style.display="none"; error.style.display="block";
-      }
-    }else{
-      video.style.display="none";
-      frame.style.display="block";
-      frame.src=data.url;
-      loading.style.display="none";
-    }
-  }else{
-    loading.style.display="none";
-    error.style.display="block";
-  }
+/* Find tournament group */
+
+const group = TOURNAMENTS[key.charAt(0)];
+
+
+/* Find selected stream */
+
+const selected =
+  group?.streams?.[key];
+
+
+/* Elements */
+
+const tournamentEl =
+  document.getElementById("tournament");
+
+const matchEl =
+  document.getElementById("match");
+
+const currentCode =
+  document.getElementById("currentCode");
+
+const currentName =
+  document.getElementById("currentName");
+
+const streamList =
+  document.getElementById("streamList");
+
+const video =
+  document.getElementById("video");
+
+const frame =
+  document.getElementById("frame");
+
+const loading =
+  document.getElementById("loading");
+
+const error =
+  document.getElementById("error");
+
+
+/* ==================================================
+   INVALID LINK
+================================================== */
+
+if(!group || !selected){
+
+  loading.style.display = "none";
+
+  error.style.display = "flex";
+
+  tournamentEl.textContent = "Invalid Stream";
+
+  matchEl.textContent =
+    "Please use a valid Cʀɪᴄx 〆 stream link.";
+
 }
 
-document.getElementById("share").addEventListener("click",async()=>{
-  const url=location.href;
-  try{
-    if(navigator.share) await navigator.share({title:"Cʀɪᴄx 〆",url});
-    else await navigator.clipboard.writeText(url);
-  }catch(e){}
-});
+
+/* ==================================================
+   VALID STREAM
+================================================== */
+
+else{
+
+  tournamentEl.textContent =
+    group.tournament;
+
+  matchEl.textContent =
+    group.match;
+
+  currentCode.textContent =
+    key;
+
+  currentName.textContent =
+    selected.name;
+
+
+  /* Build stream buttons */
+
+  Object.entries(group.streams).forEach(
+    ([streamKey,stream])=>{
+
+      const item =
+        document.createElement("a");
+
+      item.className =
+        "stream-item" +
+        (streamKey === key ? " active" : "");
+
+      item.href =
+        location.origin +
+        location.pathname +
+        "?" +
+        streamKey;
+
+      item.innerHTML = `
+
+        <div class="item-code">
+          ${streamKey}
+        </div>
+
+        <div class="item-info">
+
+          <div class="item-name">
+            ${stream.name}
+          </div>
+
+          <div class="item-status">
+            ${streamKey === key ? "Selected" : "Switch stream"}
+          </div>
+
+        </div>
+
+      `;
+
+      streamList.appendChild(item);
+
+    }
+  );
+
+
+  /* No URL */
+
+  if(!selected.url){
+
+    loading.style.display =
+      "none";
+
+    error.style.display =
+      "flex";
+
+  }
+
+
+  /* Stream URL */
+
+  else if(
+    /^https?:\/\//i.test(selected.url)
+  ){
+
+    /*
+      HLS .m3u8
+    */
+
+    if(
+      /\.m3u8($|\?)/i.test(selected.url)
+    ){
+
+      if(
+        video.canPlayType(
+          "application/vnd.apple.mpegurl"
+        )
+      ){
+
+        video.src =
+          selected.url;
+
+        video.addEventListener(
+          "loadedmetadata",
+          ()=>{
+            loading.style.display =
+              "none";
+          },
+          {once:true}
+        );
+
+      }
+
+      else if(
+        window.Hls &&
+        Hls.isSupported()
+      ){
+
+        const hls =
+          new Hls();
+
+        hls.loadSource(
+          selected.url
+        );
+
+        hls.attachMedia(
+          video
+        );
+
+        hls.on(
+          Hls.Events.MANIFEST_PARSED,
+          ()=>{
+            loading.style.display =
+              "none";
+          }
+        );
+
+        hls.on(
+          Hls.Events.ERROR,
+          (event,data)=>{
+
+            if(data.fatal){
+
+              loading.style.display =
+                "none";
+
+              error.style.display =
+                "flex";
+
+            }
+
+          }
+        );
+
+      }
+
+      else{
+
+        loading.style.display =
+          "none";
+
+        error.style.display =
+          "flex";
+
+      }
+
+    }
+
+
+    /*
+      IFRAME / EMBED
+    */
+
+    else{
+
+      video.style.display =
+        "none";
+
+      frame.style.display =
+        "block";
+
+      frame.src =
+        selected.url;
+
+      loading.style.display =
+        "none";
+
+    }
+
+  }
+
+
+  else{
+
+    loading.style.display =
+      "none";
+
+    error.style.display =
+      "flex";
+
+  }
+
+}
+
+
+/* ==================================================
+   SHARE
+================================================== */
+
+document
+  .getElementById("shareBtn")
+  .addEventListener(
+    "click",
+    async()=>{
+
+      const url =
+        location.href;
+
+      try{
+
+        if(
+          navigator.share
+        ){
+
+          await navigator.share({
+
+            title:
+              "Cʀɪᴄx 〆 — Live Sports",
+
+            text:
+              group
+                ? `${group.tournament} — ${group.match}`
+                : "Cʀɪᴄx 〆 Live Stream",
+
+            url:url
+
+          });
+
+        }
+
+        else{
+
+          await navigator
+            .clipboard
+            .writeText(url);
+
+          alert(
+            "Stream link copied!"
+          );
+
+        }
+
+      }
+
+      catch(e){}
+
+    }
+  );
+
 </script>
+
 </body>
 </html>
