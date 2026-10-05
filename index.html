@@ -29,14 +29,14 @@ iframe{display:none}
 @keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}100%{content:""}}
 .error-state{display:none}.error-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,55,55,.08);font-size:25px}
 .error-title{margin-top:11px;font-size:18px;font-weight:950}.error-text{margin-top:5px;color:#707b75;font-size:11px}
-.info-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:10px;margin-top:11px}
+.info-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:8px;margin-top:8px}
 .info-card{border:1px solid var(--line);border-radius:13px;background:linear-gradient(145deg,rgba(12,20,15,.96),rgba(7,12,9,.96))}
 .match-card{padding:17px 18px}
-.tournament-card{padding:12px 15px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tournament-card{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .label{color:var(--green);font-size:10px;font-weight:950;letter-spacing:1.2px;text-transform:uppercase}
 .match-title{margin-top:6px;font-size:20px;line-height:1.28;font-weight:900}
-.tournament-title{margin-top:4px;font-size:13px;line-height:1.3;font-weight:800;color:#d8dfdb}
-.stream-box{margin-top:11px;padding:14px;border:1px solid var(--line);border-radius:13px;background:var(--card)}
+.tournament-title{margin-top:3px;font-size:12px;line-height:1.25;font-weight:800;color:#d8dfdb}
+.stream-box{margin-top:9px;padding:14px;border:1px solid var(--line);border-radius:13px;background:var(--card)}
 .stream-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .stream-heading strong{font-size:12px;font-weight:950}.stream-heading span{color:#5f6b65;font-size:9px}
 .streams{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
@@ -46,21 +46,21 @@ iframe{display:none}
 .stream-code{flex:0 0 31px;width:31px;height:31px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#151d18;color:#aab5ae;font-size:10px;font-weight:950}
 .active .stream-code{background:var(--green);color:#031008}
 .stream-info{min-width:0}.stream-name{font-size:11px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.stream-state{margin-top:2px;color:#64716a;font-size:9px}
-.telegram{margin-top:13px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid rgba(22,139,208,.22);border-radius:12px;background:linear-gradient(90deg,rgba(22,139,208,.075),rgba(22,139,208,.025))}
+.stream-state{margin-top:2px;color:#64716a;font-size:8px}
+.telegram{margin-top:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid rgba(22,139,208,.22);border-radius:12px;background:linear-gradient(90deg,rgba(22,139,208,.075),rgba(22,139,208,.025))}
 .telegram-left{display:flex;align-items:center;gap:10px;min-width:0}.telegram-icon{flex:0 0 34px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#168bd0;color:#fff;font-size:15px}
 .telegram-copy{min-width:0}.telegram-title{font-size:11px;font-weight:900}.telegram-desc{margin-top:3px;color:#728079;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.telegram-btn{flex:0 0 auto;padding:8px 12px;border-radius:9px;background:#168bd0;color:#fff;font-size:9px;font-weight:900}
+.telegram-btn{flex:0 0 auto;padding:7px 10px;border-radius:8px;background:#168bd0;color:#fff;font-size:9px;font-weight:900}
 .footer{padding:14px 0 2px;text-align:center;color:#46524c;font-size:9px;letter-spacing:.4px}
 @media(max-width:850px){.info-grid{grid-template-columns:1fr}.streams{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){
 .header{height:65px;padding:0 15px}.brand{font-size:24px}.brand-sub{display:none}
 .page{padding:10px 9px 18px}.player-card{border-radius:13px}
-.info-grid{margin-top:9px;gap:8px}.match-card{padding:14px}.tournament-card{padding:10px 13px}
-.match-title{font-size:17px}.tournament-title{font-size:12px}
+.info-grid{margin-top:7px;gap:7px}.match-card{padding:14px}.tournament-card{padding:9px 11px}
+.match-title{font-size:17px}.tournament-title{font-size:11.5px}
 .stream-box{margin-top:9px;padding:11px;border-radius:12px}.streams{grid-template-columns:1fr 1fr;gap:7px}
 .stream-item{min-height:48px;padding:7px}.stream-name{font-size:10px}
-.telegram{margin-top:10px;padding:10px}.telegram-icon{width:31px;height:31px;flex-basis:31px}.telegram-title{font-size:10px}.telegram-desc{font-size:8px}.telegram-btn{padding:8px 10px;font-size:9px}
+.telegram{margin-top:8px;padding:9px}.telegram-icon{width:30px;height:30px;flex-basis:30px}.telegram-title{font-size:10px}.telegram-desc{font-size:8px}.telegram-btn{padding:7px 9px;font-size:8px}
 }
 @media(max-width:370px){.brand{font-size:22px}.stream-name{font-size:9px}.stream-code{width:28px;height:28px;flex-basis:28px}.telegram-desc{display:none}}
 </style>
@@ -95,7 +95,7 @@ iframe{display:none}
   </div>
   <div class="info-card tournament-card">
     <div>
-      <div class="label">Series / Tournament</div>
+      <div class="label">Tournament</div>
       <div class="tournament-title" id="tournament">—</div>
     </div>
   </div>
@@ -104,7 +104,6 @@ iframe{display:none}
 <section class="stream-box">
   <div class="stream-heading">
     <strong>Available Streams</strong>
-    <span id="streamCount">—</span>
   </div>
   <div class="streams" id="streamList"></div>
 </section>
@@ -132,7 +131,7 @@ Direct links:
 https://cricxx.github.io/cricxq-/?A1
 https://cricxx.github.io/cricxq-/?B4
 
-Each group has one Series / Tournament name.
+Each group has one Tournament name.
 Each stream only needs: name + authorized URL.
 */
 
@@ -207,7 +206,6 @@ const selected=event?.streams?.[key];
 const matchEl=document.getElementById("match");
 const tournamentEl=document.getElementById("tournament");
 const streamList=document.getElementById("streamList");
-const streamCount=document.getElementById("streamCount");
 const video=document.getElementById("video");
 const frame=document.getElementById("frame");
 const loading=document.getElementById("loading");
@@ -226,7 +224,6 @@ if(!event||!selected){
   matchEl.textContent=event.match;
   tournamentEl.textContent=event.tournament;
   const entries=Object.entries(event.streams);
-  streamCount.textContent=entries.length+" Streams";
 
   entries.forEach(([streamKey,stream])=>{
     const item=document.createElement("a");
