@@ -2,168 +2,343 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cʀɪᴄx 〆</title>
+<title>Cʀɪᴄx 〆 Live</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css">
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.js"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
 body{
-  min-height:100vh;
-  background:#030806;
+  margin:0;
+  background:#050b18;
+  font-family:Arial, sans-serif;
   color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
 }
 .header{
-  height:68px;
+  background:#0a1f44;
+  padding:14px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
+.sub{font-size:13px;opacity:.8}
+.player-box{margin:10px}
+.info{
+  margin:10px;
+  background:#0a1f44;
+  padding:10px;
+  border-radius:10px;
+  font-size:14px;
+}
+.counter{color:#00ffcc;font-weight:bold}
+.tg-box{
+  margin:15px;
+  padding:15px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#0a1f44,#020617);
+  text-align:center;
+}
+.tg-box a{
+  display:block;
+  margin:10px 0;
+  padding:13px;
+  border-radius:10px;
+  background:#0088cc;
+  color:#fff;
+  font-weight:bold;
+  text-decoration:none;
+}
+</style>
+  <style>
+/* Telegram Join Popup */
+.tg-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#040c08;
-  border-bottom:1px solid rgba(255,255,255,.08);
+  z-index:99999;
 }
-.logo{font-size:25px;font-weight:900}
-.logo span{color:#2af28c}
-
-.page{max-width:1200px;margin:auto;padding:18px}
-
-.player{
-  width:100%;
-  aspect-ratio:16/9;
-  background:#000;
+.tg-box{
+  width:90%;
+  max-width:360px;
+  background:linear-gradient(135deg,#1da1f2,#0d6efd);
+  padding:25px;
   border-radius:16px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.09);
-  box-shadow:0 20px 60px rgba(0,0,0,.55);
-}
-.player iframe{
-  width:100%;
-  height:100%;
-  display:block;
-  border:0;
-}
-
-.notice{
-  display:none;
-  min-height:50vh;
-  align-items:center;
-  justify-content:center;
   text-align:center;
-}
-.notice-box{max-width:420px;padding:30px}
-.notice-icon{font-size:42px;margin-bottom:14px}
-.notice h2{font-size:22px;margin-bottom:8px}
-.notice p{color:#8d9c94;font-size:14px}
-
-.telegram{text-align:center;margin-top:18px}
-.telegram a{
-  display:inline-block;
-  text-decoration:none;
   color:#fff;
-  background:#168bd0;
-  padding:11px 18px;
-  border-radius:11px;
-  font-size:13px;
-  font-weight:800;
+  box-shadow:0 0 40px rgba(29,161,242,.6);
 }
-.footer{text-align:center;color:#53625b;font-size:11px;padding:20px}
-
-@media(max-width:600px){
-  .header{height:62px}
-  .logo{font-size:22px}
-  .page{padding:10px}
-  .player{border-radius:11px}
+.tg-box h2{
+  margin:10px 0;
 }
-</style>
+.tg-box p{
+  font-size:14px;
+  opacity:.9;
+}
+.tg-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:12px;
+}
+.tg-join{
+  background:#fff;
+  color:#0d6efd;
+  font-weight:bold;
+}
+.tg-later{
+  background:rgba(255,255,255,.25);
+  color:#fff;
+}
+  </style>
 </head>
 
-<body>
+<body oncontextmenu="return false">
 
-<header class="header">
-  <div class="logo">Cʀɪᴄ<span>x</span> 〆</div>
-</header>
+<div class="header">
+  Cʀɪᴄx 〆 
+</div>
 
-<main class="page">
+<div class="player-box">
+  <video 
+  id="player"
+  playsinline
+  muted
+  autoplay
+  controls
+  preload="auto">
+  </video>
+</div>
 
-  <div class="player" id="playerBox">
-    <iframe
-      id="streamPlayer"
-      src=""
-      title="Cʀɪᴄx 〆 Live Stream"
-      loading="eager"
-      allow="autoplay; fullscreen; encrypted-media; picture-in-picture; accelerometer; gyroscope"
-      allowfullscreen
-      referrerpolicy="strict-origin-when-cross-origin">
-    </iframe>
-  </div>
-
-  <div class="notice" id="notice">
-    <div class="notice-box">
-      <div class="notice-icon">🔒</div>
-      <h2>Invalid Stream Link</h2>
-      <p>Please use a valid Cʀɪᴄx 〆 stream link.</p>
-    </div>
-  </div>
-
-  <div class="telegram">
-    <a href="https://t.me/cricxq" target="_blank" rel="noopener">
-      ✈ Join Telegram
-    </a>
-  </div>
-
-</main>
-
-<footer class="footer">© 2026 Cʀɪᴄx 〆</footer>
+<div class="tg-box">
+  <a href="https://t.me/CriccSojeeb" target="_blank">
+    🔔 Join Telegram for Live Match Links
+  </a>
+</div>
 
 <script>
-/*
-  Cʀɪᴄx 〆 — iframe stream slots
-
-  IMPORTANT:
-  Use only embed URLs that you are authorized to embed.
-
-  Share:
-  https://cricxx.github.io/cricxq-/?match=Match1
-*/
-
-const STREAMS = {
-  WCL2026: "https://ntv.cx/embed?t=WElXbjZyTXRVZ3RDRDYyQjhiZjAwb1VhMGQ2a1V5dS9KUWZYdGp6Y1NwVTMrRk40dURzWGFqMUJIRWprQkdzbg~~",
-
-  Match2: "",
-  Match3: "",
-  Match4: "",
-  Match5: "",
-  Match6: "",
-  Match7: "",
-  Match8: "",
-  Match9: "",
-  Match10: "",
-  Match11: "",
-  Match12: "",
-  Match13: "",
-  Match14: "",
-  Match15: "",
-  Match16: "",
-  Match17: "",
-  Match18: "",
-  Match19: "",
-  Match20: ""
+// 🔐 Basic Inspect Protection
+document.onkeydown = function(e){
+  if(e.keyCode==123) return false;
+  if(e.ctrlKey && e.shiftKey && e.keyCode==73) return false;
 };
 
-const params = new URLSearchParams(window.location.search);
-const match = params.get("match");
-const stream = match ? STREAMS[match] : "";
-
-const playerBox = document.getElementById("playerBox");
-const player = document.getElementById("streamPlayer");
-const notice = document.getElementById("notice");
-
-if (stream && /^https?:\/\//i.test(stream)) {
-  player.src = stream;
-} else {
-  playerBox.style.display = "none";
-  notice.style.display = "flex";
+// 🔔 Telegram Join Popup (Join / Skip)
+if(!localStorage.getItem("tg_skip")){
+  setTimeout(()=>{
+    if(confirm("Join CriccSojeeb Telegram Channel for live links?")){
+      window.location.href="https://t.me/CriccSojeeb";
+    }else{
+      localStorage.setItem("tg_skip","yes");
+    }
+  },1500);
 }
+
+const CHANNELS = {
+
+  /*
+   * Cʀɪᴄx 〆 — 5 × 5 SHORT LINK SYSTEM
+   *
+   * A1–A5
+   * B1–B5
+   * C1–C5
+   * D1–D5
+   * E1–E5
+   *
+   * Example:
+   * https://cricxx.github.io/cricxq-/?A1
+   *
+   * Replace each placeholder with an authorized stream/embed URL.
+   */
+  A1: { name:"A1", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  A2: { name:"A2", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  A3: { name:"A3", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  A4: { name:"A4", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  A5: { name:"A5", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  B1: { name:"B1", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  B2: { name:"B2", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  B3: { name:"B3", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  B4: { name:"B4", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  B5: { name:"B5", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  C1: { name:"C1", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  C2: { name:"C2", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  C3: { name:"C3", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  C4: { name:"C4", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  C5: { name:"C5", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  D1: { name:"D1", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  D2: { name:"D2", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  D3: { name:"D3", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  D4: { name:"D4", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  D5: { name:"D5", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  E1: { name:"E1", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  E2: { name:"E2", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  E3: { name:"E3", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  E4: { name:"E4", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+  E5: { name:"E5", url:"PASTE_AUTHORIZED_STREAM_URL_HERE" },
+
+};
+
+
+/* ========== STREAM SELECTOR ========== */
+const params = new URLSearchParams(window.location.search);
+
+// Short link format: ?A1, ?A2 ... ?E5
+// URLSearchParams treats ?A1 as a key with an empty value.
+const shortKey = [...params.keys()][0] || "";
+
+if(!/^[A-E][1-5]$/.test(shortKey) || !CHANNELS[shortKey]){
+  alert("❌ Invalid or Private Stream Link");
+  throw new Error("No stream selected");
+}
+
+const source = CHANNELS[shortKey].url;
+
+if(!source || source === "PASTE_AUTHORIZED_STREAM_URL_HERE"){
+  alert("⚠️ This stream is not configured yet.");
+  throw new Error("Stream URL not configured");
+}
+const video = document.getElementById("player");
+
+// ▶️ HLS Player
+if(Hls.isSupported()){
+  const hls = new Hls({autoStartLoad:true});
+  hls.loadSource(source);
+  hls.attachMedia(video);
+}else{
+  video.src = source;
+}
+
+// 🎛 Plyr UI
+new Plyr(video,{
+  quality:{
+    default:'auto',
+    options:['auto',1080,720,480,360],
+    forced:true
+  }
+});
+
 </script>
+  <!-- Telegram Join Popup -->
+<div class="tg-overlay" id="tgPopup">
+  <div class="tg-box">
+    <h2>Join our Telegram</h2>
+    <p>Get instant updates on all live streams</p>
+
+    <button class="tg-btn tg-join" onclick="joinTG()">Join Now</button>
+    <button class="tg-btn tg-later" onclick="closeTG()">Maybe Later</button>
+  </div>
+</div>
+  <script>
+function joinTG(){
+  window.open("https://t.me/CriccSojeeb","_blank");
+}
+
+function closeTG(){
+  document.getElementById("tgPopup").style.display="none";
+}
+
+// Reload হলেই popup দেখাবে
+window.onload = function(){
+  document.getElementById("tgPopup").style.display="flex";
+};
+  </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
