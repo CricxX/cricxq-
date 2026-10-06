@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#050807">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Cʀɪᴄx 〆 — Live Sports</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -142,7 +145,7 @@ const EVENTS = {
     match:"Match 1",
     streams:{
       A1:{name:"Willow Sports",url:""},
-      A2:{name:"Star Sports",url:"http://51.75.127.199:3141/starsports1/index.m3u8"},
+      A2:{name:"Sky Sports",url:""},
       A3:{name:"Tampad",url:""},
       A4:{name:"FanCode",url:""},
       A5:{name:"Fox Sports",url:""}
@@ -151,13 +154,13 @@ const EVENTS = {
 
   B:{
     tournament:"World Championship League of Legends 2026",
-    match:"06 - Bangladesh vs England",
+    match:"Match 1",
     streams:{
-      B1:{name:"Star Sports",url:"http://51.75.127.199:3141/starsports2/index.m3u8"},
+      B1:{name:"Star Sports",url:""},
       B2:{name:"Sony Ten",url:""},
       B3:{name:"Sony LIV",url:""},
-      B4:{name:"Willow Sports",url:"https://ntv.cx/embed?t=WElXbjZyTXRVZ3RDRDYyQjhiZjAwb1VhMGQ2a1V5dS9KUWZYdGp6Y1NwVTMrRk40dURzWGFqMUJIRWprQkdzbg~~"},
-      B5:{name:"FanCode",url:"https://bd-mc-flive.fancode.com/mumbai/4248563_english_hls_1cd7842cc078552_1ta-di_h264/1080p.m3u8?hdntl=Expires=1791283932~_GO=Generated~acl=/mumbai/4248563_english_hls_1cd7842cc078552_1ta-di_h264/*~Signature=AXZsC1DsseKRi5gDj-Ebt2Mnr-enQaLRtadOkIlFehAPlCJ-hOE5H3lGXfwVpfyhKcYRhxFb4VP2oKDjLz2scDrey3YM"}
+      B4:{name:"Willow Sports",url:""},
+      B5:{name:"FanCode",url:""}
     }
   },
 
@@ -223,18 +226,33 @@ if(!event||!selected){
 }else{
   matchEl.textContent=event.match;
   tournamentEl.textContent=event.tournament;
-  const entries=Object.entries(event.streams);
+  // Always rebuild the stream list from the current EVENTS object.
+  // This prevents an old/stale DOM value from being reused.
+  streamList.replaceChildren();
 
-  entries.forEach(([streamKey,stream])=>{
+  Object.entries(event.streams).forEach(([streamKey,stream])=>{
     const item=document.createElement("a");
     item.className="stream-item"+(streamKey===key?" active":"");
     item.href=location.origin+location.pathname+"?"+streamKey;
-    item.innerHTML=`
-      <div class="stream-code">${streamKey}</div>
-      <div class="stream-info">
-        <div class="stream-name">${stream.name}</div>
-        <div class="stream-state">${streamKey===key?"Selected":"Switch stream"}</div>
-      </div>`;
+    item.dataset.streamKey=streamKey;
+
+    const code=document.createElement("div");
+    code.className="stream-code";
+    code.textContent=streamKey;
+
+    const info=document.createElement("div");
+    info.className="stream-info";
+
+    const name=document.createElement("div");
+    name.className="stream-name";
+    name.textContent=stream.name;
+
+    const state=document.createElement("div");
+    state.className="stream-state";
+    state.textContent=streamKey===key?"Selected":"Switch stream";
+
+    info.append(name,state);
+    item.append(code,info);
     streamList.appendChild(item);
   });
 
